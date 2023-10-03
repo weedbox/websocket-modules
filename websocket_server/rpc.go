@@ -2,6 +2,8 @@ package websocket_server
 
 import (
 	"errors"
+
+	"go.uber.org/zap"
 )
 
 var (
@@ -126,6 +128,7 @@ func (ra *RPCAdapter) HandleMessage(c Client) error {
 }
 
 func (ra *RPCAdapter) Register(method string, fn RPCFunc) error {
+	logger.Info("Registering", zap.String("method", method))
 	ra.methods[method] = fn
 	return nil
 }

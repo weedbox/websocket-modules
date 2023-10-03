@@ -7,7 +7,7 @@ require (
 	github.com/gobwas/ws v1.3.0
 	github.com/google/uuid v1.3.1
 	github.com/json-iterator/go v1.1.12
-	github.com/smallnest/epoller v1.0.0
+	github.com/smallnest/epoller v0.0.0-20220519132708-4cf8edae2daf
 	github.com/weedbox/common-modules v0.0.4
 	go.uber.org/fx v1.20.0
 	go.uber.org/zap v1.26.0
