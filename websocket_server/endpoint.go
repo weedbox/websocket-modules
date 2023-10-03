@@ -77,6 +77,10 @@ func (ep *Endpoint) GetUri() string {
 	return ep.uri
 }
 
+func (ep *Endpoint) GetAdapter() Adapter {
+	return ep.options.Adapter
+}
+
 func (ep *Endpoint) Establish(c *gin.Context) {
 
 	// Check protocol
