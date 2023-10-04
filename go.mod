@@ -5,9 +5,11 @@ go 1.19
 require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/gobwas/ws v1.3.0
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/uuid v1.3.1
 	github.com/json-iterator/go v1.1.12
 	github.com/smallnest/epoller v0.0.0-20220519132708-4cf8edae2daf
+	github.com/spf13/viper v1.16.0
 	github.com/weedbox/common-modules v0.0.5
 	go.uber.org/fx v1.20.0
 	go.uber.org/zap v1.26.0
@@ -39,7 +41,6 @@ require (
 	github.com/spf13/cast v1.5.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/spf13/viper v1.16.0 // indirect
 	github.com/subosito/gotenv v1.4.2 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.11 // indirect

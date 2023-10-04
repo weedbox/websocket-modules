@@ -62,6 +62,10 @@ func (ra *RPCAdapter) consume(c *Context) error {
 	err := ra.handleRequest(c)
 	if err != nil {
 
+		if errors.Is(err, ErrMethodNotFound) {
+			err = NewError(ErrorCode_NotFound, nil)
+		}
+
 		// Error
 		res := &RPCResponse{
 			ID:     c.GetRequest().ID,

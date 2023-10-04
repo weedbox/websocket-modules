@@ -5,8 +5,6 @@ type RPCErrorCode int32
 const (
 	ErrorCode_InvalidRequest                       RPCErrorCode = 1000
 	ErrorCode_NotFound                                          = 2000
-	ErrorCode_NotFound_No_Such_Service                          = 2001
-	ErrorCode_NotFound_No_Such_Method                           = 2002
 	ErrorCode_InvalidParams                                     = 3000
 	ErrorCode_InvalidParams_Invalid_Arguments                   = 3001
 	ErrorCode_InvalidParams_Insufficient_Arguments              = 3002
@@ -18,8 +16,6 @@ var (
 	errorMsgMap = map[RPCErrorCode]string{
 		ErrorCode_InvalidRequest:                       "Invalid Request",
 		ErrorCode_NotFound:                             "Method not found",
-		ErrorCode_NotFound_No_Such_Service:             "No such service",
-		ErrorCode_NotFound_No_Such_Method:              "No such method",
 		ErrorCode_InvalidParams:                        "Invalid params",
 		ErrorCode_InvalidParams_Invalid_Arguments:      "Invalid arguments",
 		ErrorCode_InvalidParams_Insufficient_Arguments: "Insufficient arguments",
