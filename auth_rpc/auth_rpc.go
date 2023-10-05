@@ -77,12 +77,6 @@ func Module(scope string, uri string, opts ...Option) fx.Option {
 
 			arpc.initDefaultConfigs()
 
-			token, _ := arpc.authenticator.GenerateToken(&AuthenticationInfo{
-				UserID: "hello",
-			})
-
-			fmt.Println(token)
-
 			for _, o := range opts {
 				o(arpc)
 			}
