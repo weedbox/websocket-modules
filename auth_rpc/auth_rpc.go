@@ -107,7 +107,9 @@ func (arpc *AuthRPC) initDefaultConfigs() {
 
 func (arpc *AuthRPC) onStart(ctx context.Context) error {
 
-	arpc.logger.Info("Starting Auth RPC")
+	arpc.logger.Info("Starting Auth RPC",
+		zap.String("uri", arpc.uri),
+	)
 
 	// Set secret if it is JWT authenticator
 	if a, ok := arpc.authenticator.(*JWTAuthenticator); ok {
