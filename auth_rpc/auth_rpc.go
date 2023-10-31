@@ -14,9 +14,9 @@ import (
 )
 
 type AuthenticateResponse struct {
-	Success bool   `json:"success"`
-	Message bool   `json:"message,omitempty"`
-	UserID  string `json:"user_id,omitempty"`
+	Success bool                   `json:"success"`
+	Message bool                   `json:"message,omitempty"`
+	Data    map[string]interface{} `json:"data,omitempty"`
 }
 
 type AuthRPC struct {
@@ -160,9 +160,12 @@ func (arpc *AuthRPC) authenticate(c *websocket_server.Context) (interface{}, err
 		return res, nil
 	}
 
-	res.UserID = info.UserID
+	res.Data = make(map[string]interface{})
 
-	c.GetMeta().Set("user_id", info.UserID)
+	for k, v := range info.Data {
+		res.Data[k] = v
+		c.GetMeta().Set(k, v)
+	}
 
 	return res, nil
 }

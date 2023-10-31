@@ -2,20 +2,14 @@ package auth_rpc
 
 import (
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/golang-jwt/jwt"
+	"strings"
 )
 
 type HTTPAuthenticator struct {
 	Url string
-}
-
-type HTTPClaims struct {
-	jwt.StandardClaims
-
-	UserID string `json:"user_id"`
 }
 
 func NewHTTPAuthenticator(url string) *HTTPAuthenticator {
@@ -52,11 +46,29 @@ func (ha *HTTPAuthenticator) Authenticate(token string) (*AuthenticationInfo, er
 		return nil, errors.New("authentication service returned error")
 	}
 
-	userID := resp.Header.Get("X-Jwt-Id")
+	info := &AuthenticationInfo{
+		Data: make(map[string]interface{}),
+	}
 
-	return &AuthenticationInfo{
-		UserID: userID,
-	}, nil
+	for k, v := range resp.Header {
+
+		var key string
+		fmt.Sscanf(k, "X-Jwt-%s", &key)
+
+		if len(key) == 0 {
+			continue
+		}
+
+		key = strings.ToLower(key)
+
+		if len(v) == 1 {
+			info.Data[key] = v[0]
+		} else {
+			info.Data[key] = v
+		}
+	}
+
+	return info, nil
 }
 
 func (ha *HTTPAuthenticator) GenerateToken(info *AuthenticationInfo) (string, error) {

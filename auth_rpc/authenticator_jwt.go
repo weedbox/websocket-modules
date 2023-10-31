@@ -40,14 +40,16 @@ func (ja *JWTAuthenticator) Authenticate(token string) (*AuthenticationInfo, err
 	}
 
 	return &AuthenticationInfo{
-		UserID: claims.UserID,
+		Data: map[string]interface{}{
+			"id": claims.UserID,
+		},
 	}, nil
 }
 
 func (ja *JWTAuthenticator) GenerateToken(info *AuthenticationInfo) (string, error) {
 
 	claims := JWTClaims{
-		UserID: info.UserID,
+		UserID: info.Data["id"].(string),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS512, claims)

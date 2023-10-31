@@ -9,7 +9,7 @@ var (
 )
 
 type AuthenticationInfo struct {
-	UserID string
+	Data map[string]interface{}
 }
 
 type Authenticator interface {
