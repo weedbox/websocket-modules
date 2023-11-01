@@ -4,7 +4,6 @@ import "io"
 
 type Context struct {
 	client Client
-	meta   *Metadata
 	req    *RPCRequest
 }
 
@@ -12,12 +11,11 @@ func NewContext(client Client, req *RPCRequest) *Context {
 	return &Context{
 		client: client,
 		req:    req,
-		meta:   NewMetadata(),
 	}
 }
 
 func (ctx *Context) GetMeta() *Metadata {
-	return ctx.meta
+	return ctx.client.GetMeta()
 }
 
 func (ctx *Context) GetClient() Client {
@@ -44,6 +42,6 @@ func (ctx *Context) Respond(res *RPCResponse) error {
 	return ctx.client.Respond(res)
 }
 
-func (ctx *Context) Notify(eventName string, payload []byte) error {
+func (ctx *Context) Notify(eventName string, payload interface{}) error {
 	return ctx.client.Notify(eventName, payload)
 }

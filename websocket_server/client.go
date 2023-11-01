@@ -24,10 +24,11 @@ type Client interface {
 	GetOptions() *Options
 	GetConnection() net.Conn
 	GetClientID() uuid.UUID
+	GetMeta() *Metadata
 	GetReader() io.Reader
 	Send(data []byte) error
 	Respond(res *RPCResponse) error
-	Notify(eventName string, payload []byte) error
+	Notify(eventName string, payload interface{}) error
 	Resume() error
 	CreateRunner(func(*Runner)) *Runner
 	Release()
@@ -68,6 +69,10 @@ func (c *client) GetConnection() net.Conn {
 
 func (c *client) GetReader() io.Reader {
 	return c.reader
+}
+
+func (c *client) GetMeta() *Metadata {
+	return c.meta
 }
 
 func (c *client) Release() {
@@ -137,7 +142,7 @@ func (c *client) Respond(res *RPCResponse) error {
 	return c.Send(data)
 }
 
-func (c *client) Notify(eventName string, payload []byte) error {
+func (c *client) Notify(eventName string, payload interface{}) error {
 
 	data, err := c.options.Adapter.PrepareNotification(eventName, payload)
 	if err != nil {

@@ -10,7 +10,7 @@ var (
 
 type Adapter interface {
 	HandleMessage(Client) error
-	PrepareNotification(eventName string, payload []byte) ([]byte, error)
+	PrepareNotification(eventName string, payload interface{}) ([]byte, error)
 	PrepareResponse(*RPCResponse) ([]byte, error)
 	Register(method string, fn RPCFunc) error
 	Unregister(method string)
@@ -31,7 +31,7 @@ func (a *adapter) PrepareResponse(res *RPCResponse) ([]byte, error) {
 	return []byte(""), ErrAdapterNotImplemented
 }
 
-func (a *adapter) PrepareNotification(eventName string, payload []byte) ([]byte, error) {
+func (a *adapter) PrepareNotification(eventName string, payload interface{}) ([]byte, error) {
 	return []byte(""), ErrAdapterNotImplemented
 }
 

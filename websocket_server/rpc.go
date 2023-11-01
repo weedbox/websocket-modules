@@ -145,6 +145,6 @@ func (ra *RPCAdapter) PrepareResponse(res *RPCResponse) ([]byte, error) {
 	return ra.backend.PrepareResponse(res)
 }
 
-func (ra *RPCAdapter) PrepareNotification(eventName string, payload []byte) ([]byte, error) {
+func (ra *RPCAdapter) PrepareNotification(eventName string, payload interface{}) ([]byte, error) {
 	return ra.backend.PrepareNotification(eventName, payload)
 }
