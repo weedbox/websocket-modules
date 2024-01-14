@@ -144,7 +144,14 @@ func (arpc *AuthRPC) authenticate(c *websocket_server.Context) (interface{}, err
 
 	parameters := c.GetRequest().Params.([]interface{})
 
-	token := parameters[0].(string)
+	if len(parameters) != 1 {
+		return nil, websocket_server.NewError(websocket_server.ErrorCode_InvalidParams_Insufficient_Arguments, nil)
+	}
+
+	token, ok := parameters[0].(string)
+	if !ok {
+		return nil, websocket_server.NewError(websocket_server.ErrorCode_InvalidParams_Invalid_Arguments, nil)
+	}
 
 	if len(token) == 0 {
 		return nil, websocket_server.NewError(websocket_server.ErrorCode_InvalidParams, nil)

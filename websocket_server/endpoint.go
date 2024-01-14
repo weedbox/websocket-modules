@@ -92,6 +92,7 @@ func (ep *Endpoint) Establish(c *gin.Context) {
 
 	// Disallow to establish connection when the number of clients exceeds
 	if ep.clientMgr.clientCount >= uint64(ep.options.MaxClients) {
+		logger.Warn("Too Many Connections")
 		c.String(http.StatusTooManyRequests, "Too Many Connections")
 		return
 	}
