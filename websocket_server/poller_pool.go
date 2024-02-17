@@ -54,7 +54,7 @@ func (pp *PollerPool) wait() {
 			continue
 		}
 
-		pp.mutex.Lock()
+		pp.mutex.RLock()
 
 		clients := make([]Client, 0, len(conns))
 		for _, conn := range conns {
@@ -63,7 +63,7 @@ func (pp *PollerPool) wait() {
 			}
 		}
 
-		pp.mutex.Unlock()
+		pp.mutex.RUnlock()
 
 		if len(clients) == 0 {
 			continue
