@@ -14,7 +14,7 @@ type RequestQueue struct {
 
 func NewRequestQueue() *RequestQueue {
 	return &RequestQueue{
-		incoming: make(chan *Context, 1024),
+		incoming: make(chan *Context, 2048),
 	}
 }
 

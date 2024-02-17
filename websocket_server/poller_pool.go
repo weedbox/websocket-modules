@@ -76,6 +76,7 @@ func (pp *PollerPool) wait() {
 func (pp *PollerPool) Add(c Client) error {
 
 	pp.mutex.Lock()
+	defer pp.mutex.Unlock()
 
 	conn := c.GetConnection()
 	pp.clients[conn] = c
@@ -85,8 +86,6 @@ func (pp *PollerPool) Add(c Client) error {
 		delete(pp.clients, conn)
 		return err
 	}
-
-	pp.mutex.Unlock()
 
 	atomic.AddInt64(&pp.connCount, 1)
 
